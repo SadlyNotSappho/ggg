@@ -2,8 +2,8 @@ use clap::{arg, ArgAction, Command};
 use ggg::{
     home_dir,
     structs::ConfigFile,
-    ui::GggUi
-    // previous
+    ui::GggUi,
+    structs::GggCacheData
 };
 use iced::{Settings, Application};
 use std::{fs, path::Path, process};
@@ -48,6 +48,8 @@ async fn main() {
     check_cache_dir(cache_dir_path);
 
     // previous(ConfigFile{path:std::env::var("ggg_config_path").unwrap()}, &std::env::var("ggg_cache_path").unwrap()).await;
+
+    println!("{:?}", GggCacheData::read(cache_dir_path.clone().to_string()));
 
     GggUi::run(Settings::default()).unwrap();
 

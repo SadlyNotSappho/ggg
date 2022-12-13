@@ -236,10 +236,7 @@ impl GirlGeniusPage {
 
         // false
 
-        let has = collected_contents.contains(&filename);
-
-        println!("does the cache dir have the image? {:?}", has);
-        has
+        collected_contents.contains(&filename)
     }
 }
 
@@ -249,3 +246,20 @@ struct GirlGeniusTopnavData {
     href: String,
 }
 
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct GggCacheData {
+    pub id: String,
+    pub filename: String,
+    pub previous: String,
+    pub next: String,
+}
+
+impl GggCacheData {
+    pub fn read(cache_dir: String) -> Vec<GggCacheData> {
+        let json = fs::read_to_string(format!("{}/pages.json", cache_dir)).expect("fix this later, nerd");
+
+        let vec: Vec<GggCacheData> = serde_json::from_str(&json[..]).expect("nightmare");
+        
+        vec
+    }
+}

@@ -127,10 +127,6 @@ impl UiPage {
         };
 
         if conf.read().latest_page == String::from("20021104") {
-            println!(
-                "{}/20021104.jpg",
-                std::env::var("ggg_cache_path").unwrap()
-            );
             Ok(UiPage {
                 image: image::Handle::from_path(format!(
                     "{}/20021104.jpg",

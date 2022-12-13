@@ -4,7 +4,7 @@ pub mod ui;
 use chrono::{DateTime, TimeZone, Utc};
 use regex::Regex;
 use std::{env, process};
-use structs::{ConfigFile, GirlGeniusPage};
+use structs::{ConfigFile, GirlGeniusPage, GggCacheData};
 
 pub fn home_dir() -> String {
     match std::env::consts::OS {
@@ -62,7 +62,7 @@ pub async fn previous(conf: ConfigFile, cache_dir: &String) -> Option<(GirlGeniu
         None
     } else {
         let current_page =
-            GirlGeniusPage::new(parse_gg_string_for_date(conf.read().latest_page)).await;
+            GirlGeniusPage::new(parse_gg_string_for_date(cp)).await;
         if let Some(prev) = current_page.previous_url {
             // println!("{}", next);
             let prev_page = GirlGeniusPage::new(parse_gg_string_for_date(prev)).await;
